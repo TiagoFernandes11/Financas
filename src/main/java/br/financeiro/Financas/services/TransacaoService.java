@@ -4,7 +4,6 @@ import br.financeiro.Financas.model.Pessoa;
 import br.financeiro.Financas.model.Transacao;
 import br.financeiro.Financas.repository.TransacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +14,18 @@ public class TransacaoService {
     @Autowired
     TransacaoRepository transacaoRepository;
 
-    public void save(Transacao transacao){
+    public void salvarDespesa(Transacao transacao){
+        if(transacao.getValor() <= 0){
+            return;
+        }
         transacao.setValor(0.0 - transacao.getValor());
+        transacaoRepository.save(transacao);
+    }
+
+    public void salvarRecebimento(Transacao transacao){
+        if(transacao.getValor() <= 0){
+            return;
+        }
         transacaoRepository.save(transacao);
     }
 

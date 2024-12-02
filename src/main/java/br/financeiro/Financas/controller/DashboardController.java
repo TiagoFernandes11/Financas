@@ -33,14 +33,26 @@ public class DashboardController {
     }
 
     @RequestMapping(value = "/nova-transacao", method = {RequestMethod.POST, RequestMethod.GET})
-    public String addNovaTransacao(Transacao transacao, Model model, Authentication authentication){
+    public String addNovaDespesa(Transacao transacao, Model model, Authentication authentication){
         if(Objects.isNull(transacao) || transacao.getValor() <= 0){
             model.addAttribute("transacao", new Transacao());
             return "nova-transacao";
         }
         Pessoa pessoa = pessoaService.getPessoaByEmail(authentication.getName());
         transacao.setPessoa(pessoa);
-        transacaoService.save(transacao);
+        transacaoService.salvarDespesa(transacao);
+        return "redirect:../dashboard";
+    }
+
+    @RequestMapping(value = "/novo-recebimento", method = {RequestMethod.POST, RequestMethod.GET})
+    public String addNovoRecebimento(Transacao transacao, Model model, Authentication authentication){
+        if(Objects.isNull(transacao) || transacao.getValor() <= 0){
+            model.addAttribute("transacao", new Transacao());
+            return "novo-recebimento";
+        }
+        Pessoa pessoa = pessoaService.getPessoaByEmail(authentication.getName());
+        transacao.setPessoa(pessoa);
+        transacaoService.salvarRecebimento(transacao);
         return "redirect:../dashboard";
     }
 }
