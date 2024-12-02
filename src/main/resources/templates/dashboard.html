@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Finanças</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Estilos personalizados -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #343a40;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            color: #007bff;
+        }
+
+        .card-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .table th, .table td {
+            vertical-align: middle;
+        }
+
+        .btn-custom {
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .btn-custom:hover {
+            background-color: #218838;
+            color: white;
+        }
+
+        .row {
+            margin-bottom: 30px;
+        }
+
+        .text-center {
+            margin-top: 40px;
+        }
+
+        .chart-container {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        /* Ajuste para os gráficos */
+        #financesChart {
+            max-width: 100%;
+            height: 400px;
+        }
+
+    </style>
+
+</head>
+<body>
+<div class="container">
+    <h1>Dashboard de Controle de Finanças</h1>
+
+    <!-- Visão Geral -->
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Saldo Total</h5>
+                    <p class="card-text" th:text="${'R$ ' + saldoTotal}">R$ 0,00</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Receitas</h5>
+                    <p class="card-text" th:text="${'R$ ' + receitas}">R$ 0,00</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Despesas</h5>
+                    <p class="card-text" th:text="${'R$ ' + despesas}">R$ 0,00</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gráfico de receitas vs despesas -->
+    <div class="chart-container">
+        <h3>Gráfico de Receitas vs Despesas</h3>
+        <canvas id="financesChart"></canvas>
+    </div>
+
+    <!-- Lista de Transações -->
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Transações Recentes</h3>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Categoria</th>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="transacao : ${transacoes}">
+                    <td th:text="${transacao.data}"></td>
+                    <td th:text="${transacao.categoria}"></td>
+                    <td th:text="${transacao.descricao}"></td>
+                    <td th:text="${'R$ ' + transacao.valor}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Botão para adicionar nova transação -->
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <a href="/nova-transacao" class="btn btn-custom">Adicionar Nova Transação</a>
+        </div>
+    </div>
+
+    <!-- Link para o cadastro de novas contas -->
+    <div class="text-center">
+        <p>Ainda não tem uma conta? <a href="/signup" class="btn btn-link">Cadastre-se</a></p>
+    </div>
+</div>
+
+<script>
+    // Dados do gráfico (dados fictícios, substitua pelos valores reais)
+    var ctx = document.getElementById('financesChart').getContext('2d');
+    var financesChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Receitas', 'Despesas'],
+            datasets: [{
+                label: 'Valores (R$)',
+                data: [5000, 3000],  // Substitua com os dados reais
+                backgroundColor: ['#28a745', '#dc3545'],
+                borderColor: ['#28a745', '#dc3545'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
