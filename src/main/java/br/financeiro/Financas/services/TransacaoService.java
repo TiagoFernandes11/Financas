@@ -1,8 +1,10 @@
 package br.financeiro.Financas.services;
 
+import br.financeiro.Financas.model.Pessoa;
 import br.financeiro.Financas.model.Transacao;
 import br.financeiro.Financas.repository.TransacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,12 +20,12 @@ public class TransacaoService {
         transacaoRepository.save(transacao);
     }
 
-    public List<Transacao> getTodasTransacoes(){
-        return transacaoRepository.findAll();
+    public List<Transacao> getTodasTransacoes(Pessoa pessoa){
+        return transacaoRepository.findByPessoa(pessoa);
     }
 
-    public double getDespesaTotal(){
-        List<Transacao> transacaos = getTodasTransacoes();
+    public double getDespesaTotal(Pessoa pessoa){
+        List<Transacao> transacaos = getTodasTransacoes(pessoa);
         double total = 0.0;
         for(Transacao transacao: transacaos){
             total += transacao.getValor();

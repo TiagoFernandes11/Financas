@@ -25,9 +25,10 @@ public class DashboardController {
     PessoaService pessoaService;
 
     @GetMapping
-    public String displayDashboard(Model model){
-        model.addAttribute("despesasTotais", transacaoService.getDespesaTotal());
-        model.addAttribute("transacoes", transacaoService.getTodasTransacoes());
+    public String displayDashboard(Model model, Authentication authentication){
+        Pessoa pessoa = pessoaService.getPessoaByEmail(authentication.getName());
+        model.addAttribute("despesasTotais", transacaoService.getDespesaTotal(pessoa));
+        model.addAttribute("transacoes", transacaoService.getTodasTransacoes(pessoa));
         return "dashboard";
     }
 
@@ -35,12 +36,11 @@ public class DashboardController {
     public String addNovaTransacao(Transacao transacao, Model model, Authentication authentication){
         if(Objects.isNull(transacao) || transacao.getValor() <= 0){
             model.addAttribute("transacao", new Transacao());
-            model.addAttribute("pessoas", pessoaService.getTodasPessoas());
             return "nova-transacao";
         }
         Pessoa pessoa = pessoaService.getPessoaByEmail(authentication.getName());
         transacao.setPessoa(pessoa);
         transacaoService.save(transacao);
-        return "nova-transacao";
+        return "redirect:../dashboard";
     }
 }

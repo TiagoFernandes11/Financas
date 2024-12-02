@@ -55,6 +55,9 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title text-center">Crie uma nova conta</h4>
+                    <div th:if="${error}">
+                        <p th:text="${error}"></p>
+                    </div>
                     <form action="/cadastrar" method="post" >
                         <div class="form-group">
                             <label for="nome">Nome</label>

@@ -19,13 +19,15 @@ public class PessoaService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    public void cadastrar(Pessoa pessoa){
-        if(pessoa.getSenha().equals(pessoa.getConfirmaSenha())){
+    public boolean cadastrar(Pessoa pessoa){
+        Pessoa temp = pessoaRepository.findByEmail(pessoa.getEmail());
+        if(pessoa.getSenha().equals(pessoa.getConfirmaSenha()) && temp == null){
             pessoa.setSenha(passwordEncoder.encode(pessoa.getSenha()));
             pessoaRepository.save(pessoa);
+            return true;
         }
         else {
-            throw new BadCredentialsException("Valores invalidos");
+            return false;
         }
     }
 
