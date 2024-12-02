@@ -8,7 +8,10 @@ import org.springframework.web.bind.annotation.*;
 public class LoginController {
 
     @RequestMapping(value = "/login", method = {RequestMethod.POST, RequestMethod.GET})
-    public String displayLogin(){
+    public String displayLogin(@RequestParam(required = false) String error, Model model){
+        if(null != error){
+            model.addAttribute("error", "Credencias invalidas, tente novamente");
+        }
         return "login";
     }
 }

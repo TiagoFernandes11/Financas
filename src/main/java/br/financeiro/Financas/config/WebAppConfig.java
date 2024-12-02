@@ -21,7 +21,7 @@ public class WebAppConfig {
                     request.requestMatchers( "/", "home").permitAll()
                            .requestMatchers("/cadastrar").permitAll()
                            .requestMatchers("/login/**").permitAll()
-                           .requestMatchers("/dashboard").authenticated()
+                           .requestMatchers("/dashboard/**").authenticated()
                            .requestMatchers(PathRequest.toH2Console()).permitAll()
             )
             .formLogin(formLogin ->
