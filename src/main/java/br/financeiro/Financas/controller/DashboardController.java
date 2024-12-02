@@ -26,6 +26,7 @@ public class DashboardController {
 
     @GetMapping
     public String displayDashboard(Model model){
+        model.addAttribute("despesasTotais", transacaoService.getDespesaTotal());
         model.addAttribute("transacoes", transacaoService.getTodasTransacoes());
         return "dashboard";
     }

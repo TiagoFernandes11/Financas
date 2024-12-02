@@ -95,25 +95,16 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Saldo Total</h5>
-                    <p class="card-text" th:text="${'R$ ' + saldoTotal}">R$ 0,00</p>
+                    <p class="card-text" th:text="${'R$ ' + despesasTotais}">R$ 0,00</p>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Receitas</h5>
-                    <p class="card-text" th:text="${'R$ ' + receitas}">R$ 0,00</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Despesas</h5>
-                    <p class="card-text" th:text="${'R$ ' + despesas}">R$ 0,00</p>
-                </div>
-            </div>
+    </div>
+
+    <!-- Botão para adicionar nova transação -->
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <a href="/dashboard/nova-transacao" class="btn btn-custom">Adicionar Nova Transação</a>
         </div>
     </div>
 
@@ -142,40 +133,6 @@
             </table>
         </div>
     </div>
-
-    <!-- Botão para adicionar nova transação -->
-    <div class="row">
-        <div class="col-md-12 text-right">
-            <a href="/dashboard/nova-transacao" class="btn btn-custom">Adicionar Nova Transação</a>
-        </div>
-    </div>
 </div>
-
-<script>
-    // Dados do gráfico (dados fictícios, substitua pelos valores reais)
-    var ctx = document.getElementById('financesChart').getContext('2d');
-    var financesChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Receitas', 'Despesas'],
-            datasets: [{
-                label: 'Valores (R$)',
-                data: [5000, 3000],  // Substitua com os dados reais
-                backgroundColor: ['#28a745', '#dc3545'],
-                borderColor: ['#28a745', '#dc3545'],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-</script>
-
 </body>
 </html>
