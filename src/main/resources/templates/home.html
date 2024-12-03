@@ -58,6 +58,9 @@
                     <div th:if="${error}">
                         <p th:text="${error}"></p>
                     </div>
+                    <ul>
+                        <li class="alert alert-danger" role="alert" th:each="error : ${#fields.errors('pessoa.*')}" th:text="${error}" />
+                    </ul>
                     <form action="/cadastrar" method="post" >
                         <div class="form-group">
                             <label for="nome">Nome</label>
