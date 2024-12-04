@@ -1,6 +1,6 @@
 package br.financeiro.Financas.services;
 
-import br.financeiro.Financas.constants.ProjetoConstantes;
+import br.financeiro.Financas.constants.Constantes;
 import br.financeiro.Financas.model.Pessoa;
 import br.financeiro.Financas.repository.PessoaRepository;
 import br.financeiro.Financas.repository.RoleRepository;
@@ -25,7 +25,7 @@ public class PessoaService {
     public boolean cadastrar(Pessoa pessoa){
         Pessoa temp = pessoaRepository.findByEmail(pessoa.getEmail());
         if(pessoa.getSenha().equals(pessoa.getConfirmaSenha()) && temp == null){
-            pessoa.setRole(roleRepository.findByNome(ProjetoConstantes.USUARIO));
+            pessoa.setRole(roleRepository.findByNome(Constantes.USUARIO));
             pessoa.setSenha(passwordEncoder.encode(pessoa.getSenha()));
             pessoaRepository.save(pessoa);
             return true;

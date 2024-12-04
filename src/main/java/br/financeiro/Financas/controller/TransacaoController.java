@@ -2,7 +2,6 @@ package br.financeiro.Financas.controller;
 
 import br.financeiro.Financas.model.Pessoa;
 import br.financeiro.Financas.model.Transacao;
-import br.financeiro.Financas.repository.PessoaRepository;
 import br.financeiro.Financas.services.PessoaService;
 import br.financeiro.Financas.services.TransacaoService;
 import jakarta.validation.Valid;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -53,5 +53,11 @@ public class TransacaoController {
         transacao.setPessoa(pessoa);
         transacaoService.salvarRecebimento(transacao);
         return "redirect:../dashboard";
+    }
+
+    @GetMapping("/excluir/{id}")
+    public String removerTransacao(@PathVariable int id){
+        transacaoService.removerTransacao(id);
+        return "redirect:../../dashboard";
     }
 }

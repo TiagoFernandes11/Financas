@@ -6,12 +6,15 @@
     <title>Dashboard de Finanças</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <!-- Estilos personalizados -->
     <style>
         body {
             background-color: #f8f9fa;
             font-family: 'Arial', sans-serif;
+            padding-left: 50px;
+            padding-right: 50px;
         }
 
         .container {
@@ -137,6 +140,7 @@
                     <th>Categoria</th>
                     <th>Descrição</th>
                     <th>Valor</th>
+                    <th>Excluir</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -145,6 +149,13 @@
                     <td th:text="${transacao.categoria}"></td>
                     <td th:text="${transacao.descricao}"></td>
                     <td th:text="${'R$ ' + transacao.valor}"></td>
+                    <td>
+                        <form th:action="@{/transacao/excluir/{id}(id=${transacao.id})}" method="get">
+                            <button type="submit" class="btn btn-danger" title="Excluir">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </form>
+                    </td>
                 </tr>
                 </tbody>
             </table>

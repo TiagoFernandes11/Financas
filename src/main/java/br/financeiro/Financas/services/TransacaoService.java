@@ -41,4 +41,10 @@ public class TransacaoService {
         }
         return total;
     }
+
+    public void removerTransacao(int id){
+        if(transacaoRepository.findById(id).isPresent()){
+            transacaoRepository.delete(transacaoRepository.findById(id).get());
+        }
+    }
 }

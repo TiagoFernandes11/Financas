@@ -26,7 +26,7 @@ public class Transacao {
 
     private double valor;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL, targetEntity = Pessoa.class)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST, targetEntity = Pessoa.class)
     @JoinColumn(name = "pessoa_id", referencedColumnName = "id", nullable = false)
     private Pessoa pessoa;
 }
