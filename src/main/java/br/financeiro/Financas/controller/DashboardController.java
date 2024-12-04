@@ -17,12 +17,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Slf4j
 @Controller
 @RequestMapping("/dashboard")
 public class DashboardController {
 
-    private static final Logger log = LoggerFactory.getLogger(DashboardController.class);
     @Autowired
     TransacaoService transacaoService;
 
@@ -37,36 +35,5 @@ public class DashboardController {
         return "dashboard";
     }
 
-    @GetMapping("/nova-transacao")
-    public String displayNovaDespesas(Model model){
-        model.addAttribute("transacao", new Transacao());
-        return "nova-transacao";
-    }
 
-    @PostMapping("/nova-transacao")
-    public String addNovaDespesa(@Valid Transacao transacao, Errors errors, Authentication authentication){
-
-        Pessoa pessoa = pessoaService.getPessoaByEmail(authentication.getName());
-        transacao.setPessoa(pessoa);
-        transacaoService.salvarDespesa(transacao);
-        return "redirect:../dashboard";
-    }
-
-    @GetMapping("/novo-recebimento")
-    public String displayNovoRecebimento(Model model){
-        model.addAttribute("transacao", new Transacao());
-        return "novo-recebimento";
-    }
-
-    @PostMapping( "/novo-recebimento")
-    public String addNovoRecebimento(@Valid Transacao transacao, Errors errors, Authentication authentication){
-        if(errors.hasErrors()){
-            log.error("Formulari de transação falhou devido: " + errors.toString());
-            return "novo-recebimento";
-        }
-        Pessoa pessoa = pessoaService.getPessoaByEmail(authentication.getName());
-        transacao.setPessoa(pessoa);
-        transacaoService.salvarRecebimento(transacao);
-        return "redirect:../dashboard";
-    }
 }

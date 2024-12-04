@@ -24,6 +24,7 @@ public class WebAppConfig {
                            .requestMatchers("/usuario/delete").authenticated()
                            .requestMatchers("/login/**").permitAll()
                            .requestMatchers("/dashboard/**").hasRole("USUARIO")
+                           .requestMatchers("/transacao/**").hasRole("USUARIO")
             )
             .formLogin(formLogin ->
                     formLogin.loginPage("/login")

@@ -87,7 +87,7 @@
 <ul>
     <li class="alert alert-danger" role="alert" th:each="error : ${#fields.errors('transacao.*')}" th:text="${error}" />
 </ul>
-<form th:action="@{/dashboard/novo-recebimento}" th:object="${transacao}" method="post">
+<form th:action="@{/transacao/novo-recebimento}" th:object="${transacao}" method="post">
     <div>
         <input type="hidden" id="id" th:field="*{id}" />
     </div>
