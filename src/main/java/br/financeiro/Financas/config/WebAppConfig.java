@@ -21,7 +21,7 @@ public class WebAppConfig {
                     request.requestMatchers( "/", "home").permitAll()
                            .requestMatchers("/cadastrar").permitAll()
                            .requestMatchers("/login/**").permitAll()
-                           .requestMatchers("/dashboard/**").authenticated()
+                           .requestMatchers("/dashboard/**").hasRole("USUARIO")
             )
             .formLogin(formLogin ->
                     formLogin.loginPage("/login")

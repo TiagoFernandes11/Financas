@@ -29,4 +29,8 @@ public class Pessoa {
     @NotBlank(message = "Confirmação de senha não pode ser vazia")
     @Transient
     private String confirmaSenha;
+
+    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST, targetEntity = Role.class)
+    @JoinColumn(name = "role_id", referencedColumnName = "id",nullable = false)
+    private Role role;
 }

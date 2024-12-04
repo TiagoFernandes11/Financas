@@ -62,7 +62,7 @@ public class DashboardController {
     }
 
     @PostMapping( "/novo-recebimento")
-    public String addNovoRecebimento(Transacao transacao, Errors errors, Authentication authentication){
+    public String addNovoRecebimento(@Valid Transacao transacao, Errors errors, Authentication authentication){
         if(errors.hasErrors()){
             log.error("Formulari de transação falhou devido: " + errors.toString());
             return "novo-recebimento";
