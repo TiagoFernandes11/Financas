@@ -3,16 +3,18 @@ package br.financeiro.Financas.controller;
 import br.financeiro.Financas.model.Pessoa;
 import br.financeiro.Financas.repository.PessoaRepository;
 import br.financeiro.Financas.services.PessoaService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
@@ -25,6 +27,27 @@ public class UserController {
 
     @Autowired
     PessoaRepository pessoaRepository;
+
+    @RequestMapping(value = "/login", method = {RequestMethod.POST, RequestMethod.GET})
+    public String displayLogin(@RequestParam(required = false) String error, @RequestParam(required = false) String logout, Model model){
+        if(null != error){
+            model.addAttribute("error", "Credencias invalidas, tente novamente");
+        }
+        if(null != logout){
+            model.addAttribute("error", "Você se deslogou com sucesso");
+        }
+        return "login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication != null){
+            new SecurityContextLogoutHandler().logout(request, response, authentication);
+        }
+        return "redirect:/usuario/login?logout=true";
+    }
+
 
     @PostMapping("/cadastrar")
     public ModelAndView cadastrar(@Valid Pessoa pessoa, Errors errors){

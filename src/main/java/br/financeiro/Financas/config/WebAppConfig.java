@@ -27,9 +27,9 @@ public class WebAppConfig {
                            .requestMatchers("/transacao/**").hasRole("USUARIO")
             )
             .formLogin(formLogin ->
-                    formLogin.loginPage("/login")
+                    formLogin.loginPage("/usuario/login")
                             .defaultSuccessUrl("/dashboard")
-                            .failureUrl("/login?error=true")
+                            .failureUrl("/usuario/login?error=true")
                             .permitAll())
             .logout(Customizer.withDefaults())
             .httpBasic(Customizer.withDefaults());

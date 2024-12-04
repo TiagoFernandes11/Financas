@@ -82,7 +82,7 @@
     </style>
 </head>
 <body>
-
+<div th:replace="~{fragments/header.html}"></div>
 <h1>Formulário de Transação</h1>
 <ul>
     <li class="alert alert-danger" role="alert" th:each="error : ${#fields.errors('transacao.*')}" th:text="${error}" />
