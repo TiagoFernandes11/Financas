@@ -19,7 +19,9 @@ public class WebAppConfig {
         http.csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests((request) ->
                     request.requestMatchers( "/", "home").permitAll()
-                           .requestMatchers("/cadastrar").permitAll()
+                           .requestMatchers("/usuario/cadastrar").permitAll()
+                           .requestMatchers("/usuario/update").authenticated()
+                           .requestMatchers("/usuario/delete").authenticated()
                            .requestMatchers("/login/**").permitAll()
                            .requestMatchers("/dashboard/**").hasRole("USUARIO")
             )

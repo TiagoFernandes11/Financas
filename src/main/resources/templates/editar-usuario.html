@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Usuario</title>
+    <style>
+        /* Resetando estilos padrões */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Estilo geral da página */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Container centralizado para o formulário */
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        /* Títulos */
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #0056b3;
+        }
+
+        /* Estilo do formulário */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Estilo dos campos de entrada */
+        label {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        /* Botões */
+        button {
+            padding: 12px;
+            background-color: #0056b3;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #004494;
+        }
+
+        .button-delete {
+            background-color: #d9534f;
+            margin-top: 20px;
+        }
+
+        .button-delete:hover {
+            background-color: #c9302c;
+        }
+
+        /* Estilo para o botão de deletar */
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+    </style>
+    <script>
+        // Função para confirmar a exclusão
+        function confirmarExclusao(event) {
+            const confirmar = confirm("Tem certeza de que deseja excluir sua conta? Esta ação não pode ser desfeita.");
+            if (!confirmar) {
+                event.preventDefault();  // Impede o envio do formulário se o usuário cancelar
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Editar Usuario</h2>
+    <ul>
+        <li class="alert alert-danger" role="alert" th:each="error : ${#fields.errors('pessoa.*')}" th:text="${error}" />
+    </ul>
+    <form action="/usuario/update" th:object="${pessoa}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <div>
+            <label for="nome">Username:</label>
+            <input type="text" id="nome" th:field="*{nome}" />
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" th:field="*{email}" />
+        </div>
+        <div>
+            <label for="senha">Nova Senha:</label>
+            <input type="password" id="senha" th:field="*{senha}" />
+        </div>
+        <div>
+            <label for="confirmaSenha">Confirmar Senha:</label>
+            <input type="password" id="confirmaSenha" th:field="*{confirmaSenha}" />
+        </div>
+        <input type="hidden" th:field="*{role}" />
+        <button type="submit">Atualizar</button>
+    </form>
+
+    <div class="button-container">
+        <!-- Excluir o usuário -->
+        <form action="/usuario/delete" method="get" onsubmit="confirmarExclusao(event)">
+            <button type="submit" class="button-delete">Excluir Conta</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

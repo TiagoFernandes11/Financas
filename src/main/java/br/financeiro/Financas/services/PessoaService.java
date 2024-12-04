@@ -35,6 +35,26 @@ public class PessoaService {
         }
     }
 
+    public void updateUsuario(Pessoa pessoa){
+        Pessoa temp = pessoaRepository.findById(pessoa.getId());
+        if(temp != null){
+            temp.setId(pessoa.getId());
+            temp.setNome(pessoa.getNome());
+            temp.setEmail(pessoa.getEmail());
+            temp.setSenha(passwordEncoder.encode(pessoa.getSenha()));
+            temp.setConfirmaSenha(passwordEncoder.encode(pessoa.getConfirmaSenha()));
+            temp.setRole(pessoa.getRole());
+            pessoaRepository.save(temp);
+        }
+    }
+
+    public void deletarUsuario(Pessoa pessoa){
+        Pessoa temp = pessoaRepository.findById(pessoa.getId());
+        if(null != temp){
+            pessoaRepository.delete(pessoa);
+        }
+    }
+
     public Pessoa getPessoaByEmail(String email){
         Pessoa pessoa = pessoaRepository.findByEmail(email);
         if(null != pessoa){
