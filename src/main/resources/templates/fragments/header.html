@@ -77,10 +77,12 @@
     <nav>
         <ul>
             <li><a href="/">Página Inicial</a></li>
-
+            <li sec:authorize="isAuthenticated()">
+                <a href="/dashboard">Dashboard</a>
+            </li>
             <!-- Verificar se o usuário está logado -->
             <li sec:authorize="!isAuthenticated()">
-                <a href="/dashboard">Fazer Login</a>
+                <a href="/usuario/login">Fazer Login</a>
             </li>
             <li sec:authorize="isAuthenticated()">
                 <a href="/logout">Sair</a>

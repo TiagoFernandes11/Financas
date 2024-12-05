@@ -13,12 +13,12 @@
         body {
             background-color: #f8f9fa;
             font-family: 'Arial', sans-serif;
-            padding-left: 50px;
-            padding-right: 50px;
         }
 
         .container {
             margin-top: 50px;
+            padding-left: 100px;
+            padding-right: 100px;
         }
 
         h1 {
@@ -94,8 +94,20 @@
         .text-center {
             margin-top: 40px;
         }
-        
+
+        .btn-container {
+            display: flex;
+            justify-content: start;
         }
+
+        .btn-container .btn-custom {
+            width: 48%;
+        }
+
+        .btn {
+            margin-right: 25px;
+        }
+
     </style>
 
 </head>
@@ -115,19 +127,15 @@
         </div>
     </div>
 
-    <!-- Botão para adicionar nova transação -->
-    <div class="row">
-        <div class="col-md-12 text-right">
+    <!-- Botões para adicionar nova transação e novo recebimento -->
+    <div class="row btn-container">
+        <div class="col-md-6">
             <a href="/transacao/nova-transacao" class="btn btn-custom">Adicionar Nova Transação</a>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12 text-right">
+        <div class="col-md-6">
             <a href="/transacao/novo-recebimento" class="btn btn-custom">Adicionar Novo Recebimento</a>
         </div>
     </div>
-
 
     <!-- Lista de Transações -->
     <div class="row">

@@ -35,6 +35,9 @@ public class TransacaoController {
 
     @PostMapping("/nova-transacao")
     public String addNovaDespesa(@Valid Transacao transacao, Errors errors, Authentication authentication){
+        if(errors.hasErrors()){
+            return "nova-transacao";
+        }
         Pessoa pessoa = pessoaService.getPessoaByEmail(authentication.getName());
         transacao.setPessoa(pessoa);
         transacaoService.salvarDespesa(transacao);
@@ -49,6 +52,9 @@ public class TransacaoController {
 
     @PostMapping( "/novo-recebimento")
     public String addNovoRecebimento(@Valid Transacao transacao, Errors errors, Authentication authentication){
+        if(errors.hasErrors()){
+            return "nova-transacao";
+        }
         Pessoa pessoa = pessoaService.getPessoaByEmail(authentication.getName());
         transacao.setPessoa(pessoa);
         transacaoService.salvarRecebimento(transacao);

@@ -17,11 +17,26 @@
             background-color: #f4f4f4;
             color: #333;
             display: flex;
-            justify-content: center;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
             padding: 20px;
+        }
+
+        /* Header */
+        header {
+            width: 100%; /* Garante que o cabeçalho ocupe toda a largura da tela */
+            background-color: #0056b3;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 1.5rem;
+            position: fixed; /* Torna o cabeçalho fixo no topo */
+            top: 0; /* Alinha o cabeçalho ao topo */
+            left: 0; /* Garante que ele ocupe toda a largura da página */
+            z-index: 1000; /* Garante que o cabeçalho fique acima de outros conteúdos */
+            padding-top: 25px;
+            padding-bottom: 25px;
         }
 
         /* Container centralizado para o formulário */
@@ -32,6 +47,7 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 500px;
+            margin-top: 100px; /* Ajuste para evitar que o conteúdo fique embaixo do cabeçalho fixo */
         }
 
         /* Títulos */
@@ -108,8 +124,13 @@
     </script>
 </head>
 <body>
-<div th:replace="~{fragments/header.html}"></div>
 
+<!-- Header -->
+<header>
+    <div th:replace="~{fragments/header.html}"></div>
+</header>
+
+<!-- Formulário para editar usuário -->
 <div class="container">
     <h2>Editar Usuario</h2>
     <ul>
